@@ -44,7 +44,7 @@ CHECK_ROOT
         systemctl start mysqld &>>$LOG_FILE
         VALIDATE $? "Start MySql Server"
 
-        mysql -h 172.31.46.78 -u root -pExpenseApp@1 -e 'show databases;' &>>$LOG_FILE
+        mysql -h mysql.matt786s.online -u root -pExpenseApp@1 -e 'show databases;' &>>$LOG_FILE
         if [ $? -ne 0 ]
         then 
         echo "Mysql root password is not setup, setting now" &>>$LOG_FILE
