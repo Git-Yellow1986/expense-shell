@@ -47,7 +47,7 @@ CHECK_ROOT
         mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
         VALIDATE $? "Setting Up root password"
 
-        mysql -h mysql.matt786s.online -u root -p ExpenseApp@1
+        mysql -h 172.31.46.78 -u root -p ExpenseApp@1
           VALIDATE $? "Setting Up host password"
 
 
