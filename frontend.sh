@@ -62,10 +62,9 @@ CHECK_ROOT
         VALIDATE $? "Change the directory to nginx/html"        
 
         unzip /tmp/frontend.zip &>>$LOG_FILE
-        VALIDATE $? "EXtract the frontend file"
+        VALIDATE $? "Extract the frontend file"
 
        # vim /etc/nginx/default.d/expense.conf
 
-        cp /home/ec2-user/expense-shell/expense.conf /etc/nginx/default.d/expense.conf
+        # cp /home/ec2-user/expense-shell/expense.conf /etc/nginx/default.d/expense.conf
         systemctl restart nginx &>>$LOG_FILE
-        
