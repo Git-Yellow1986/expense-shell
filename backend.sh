@@ -64,3 +64,22 @@ CHECK_ROOT
         rm -rf /app/* # removing existing code
         unzip /tmp/backend.zip &>>$LOG_FILE
         VALIDATE $? "Extracting backend application code"
+
+        npm install &>>$LOG_FILE
+
+        # vim /etc/systemd/system/backend.service-->given direct path by separate file backend.services
+
+        cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
+
+        systemctl daemon-reload
+        VALIDATE $? "Deaman reloading "
+
+        systemctl restart backend
+        VALIDATE $? "Restarting backend server"
+
+        systemctl enable backend
+        VALIDATE $? "Enable Backend Server"
+        
+
+
+
