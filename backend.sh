@@ -71,15 +71,24 @@ CHECK_ROOT
 
         cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
 
-        systemctl daemon-reload
+        
+        # load the data before running the backend
+        
+        dnf install mysql -y &>>$LOG_FILE
+        VALIDATE $? "Installing mysql client"
+
+        mysql -h mysql.matt786s.online -uroot -pExpenseApp@1 < /app/schema/backend.sql
+        VALIDATE $? "Schema loading"
+        
+        systemctl daemon-reload &>>$LOG_FILE
         VALIDATE $? "Deaman reloading "
 
-        systemctl restart backend
+        systemctl restart backend &>>$LOG_FILE
         VALIDATE $? "Restarting backend server"
 
-        systemctl enable backend
+        systemctl enable backend &>>$LOG_FILE
         VALIDATE $? "Enable Backend Server"
-        
+
 
 
 
