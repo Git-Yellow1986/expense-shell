@@ -66,7 +66,7 @@ CHECK_ROOT
 
        # vim /etc/nginx/default.d/expense.conf
 
-        # cp /home/ec2-user/expense-shell/expense.conf /etc/nginx/default.d/expense.conf
+         cp /home/ec2-user/expense-shell/expense.conf /etc/nginx/default.d/expense.conf
         #systemctl restart nginx &>>$LOG_FILE
-        systemtcl enable nginx
+        #systemtcl enable nginx
         systemctl restart nginx
