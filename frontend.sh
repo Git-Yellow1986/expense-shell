@@ -49,7 +49,7 @@ CHECK_ROOT
        systemctl enable nginx &>>$LOG_FILE
        VALIDATE $? "Enable Nginx "
 
-       systemctl restart nginx &>>$LOG_FILE
+       systemctl start nginx &>>$LOG_FILE
        VALIDATE $? "Restart Nginx"
 
        rm -rf /usr/share/nginx/html/* # remove content in html folder
