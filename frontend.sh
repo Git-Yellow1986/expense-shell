@@ -35,60 +35,18 @@ VALIDATE(){
 echo "Script started executing at: $(date)" | tee -a $LOG_FILE
 
 CHECK_ROOT
-        dnf module disable nodejs -y &>>$LOG_FILE
-        VALIDATE $? "Disable nodejs"
-
-        dnf module enable nodejs:20 -y &>>$LOG_FILE
-        VALIDATE $? "Enable nodejs version 20"
-
-        dnf install nodejs -y &>>$LOG_FILE
-        VALIDATE $? "Installing nodejs"
-
-        id expense &>>$LOG_FILE
-        if [ $? -ne 0 ]
+       dnf list installed nginx 
+       if [ $? -ne 0 ]
         then 
-            echo -e " expense user not exists....$R CREATING $N"
-            useradd expense &>>$LOG_FILE
-            VALIDATE $? "Create Expense user"
+        echo -e"$R Nginx is not installed, going to install it $N"
+        dnf install nginx -y &>>$LOG_FILE
+        VALIDATE $? "Installing Nginx"
         else
-            echo -e "$G expense user is already exists $N"
+        echo -e "$G Nginx is already installed, nothing to do....$N"
         fi
 
-        mkdir -p /app
-        VALIDATE $? "Creating App Folder"
+       systemctl enable nginx &>>$LOG_FILE
+       VALIDATE $? "Enable Nginx "
 
-        curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE
-        VALIDATE $? "Downloading backend application "
-
-        cd /app
-        rm -rf /app/* # removing existing code
-        unzip /tmp/backend.zip &>>$LOG_FILE
-        VALIDATE $? "Extracting backend application code"
-
-        npm install &>>$LOG_FILE
-
-        # vim /etc/systemd/system/backend.service-->given direct path by separate file backend.services
-
-        cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
-
-        
-        # load the data before running the backend
-        
-        dnf install mysql -y &>>$LOG_FILE
-        VALIDATE $? "Installing mysql client"
-
-        mysql -h mysql.matt786s.online -uroot -pExpenseApp@1 < /app/schema/backend.sql
-        VALIDATE $? "Schema loading"
-        
-        systemctl daemon-reload &>>$LOG_FILE
-        VALIDATE $? "Deaman reloading "
-
-        systemctl restart backend &>>$LOG_FILE
-        VALIDATE $? "Restarting backend server"
-
-        systemctl enable backend &>>$LOG_FILE
-        VALIDATE $? "Enable Backend Server"
-
-
-
-
+       systemctl restart nginx &>>$LOG_FILE
+       VALIDATE $? "Restart Nginx"
