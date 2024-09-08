@@ -38,7 +38,7 @@ CHECK_ROOT
        dnf list installed nginx 
        if [ $? -ne 0 ]
         then 
-        echo -e"$R Nginx is not installed, going to install it $N"
+        echo -e "$R Nginx is not installed, going to install it $N"
         dnf install nginx -y &>>$LOG_FILE
         VALIDATE $? "Installing Nginx"
         else
