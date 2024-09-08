@@ -55,8 +55,8 @@ CHECK_ROOT
        rm -rf /usr/share/nginx/html/* # remove content in html folder
        VALIDATE $? "Delet content from html folder"
 
-       curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$LOG_FILE
-       VALIDATE $? "Downloading the frontend code" 
+       curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip
+              VALIDATE $? "Downloading the frontend code" 
 
         cd /usr/share/nginx/html &>>$LOG_FILE
         VALIDATE $? "Change the directory to nginx/html"        
