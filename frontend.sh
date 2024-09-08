@@ -35,11 +35,12 @@ VALIDATE(){
 echo "Script started executing at: $(date)" | tee -a $LOG_FILE
 
 CHECK_ROOT
-       dnf list installed nginx 
+       dnf list installed nginx &>>$LOG_FILE
+
        if [ $? -ne 0 ]
         then 
         echo -e "$R Nginx is not installed, going to install it $N"
-        dnf install nginx -y &>>$LOG_FILE
+        dnf install nginx -y
         VALIDATE $? "Installing Nginx"
         else
         echo -e "$G Nginx is already installed, nothing to do....$N"
