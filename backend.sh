@@ -62,6 +62,6 @@ CHECK_ROOT
         VALIDATE $? "Downloading backend application into app folder"
 
         cd /app
-
-        unzip /tmp/backend.zip
+        rm -rf /app/* # removing existing code
+        unzip /tmp/backend.zip &>>$LOG_FILE
         VALIDATE $? "Extracting backend application code"
