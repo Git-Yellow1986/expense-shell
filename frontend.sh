@@ -35,7 +35,7 @@ VALIDATE(){
 echo "Script started executing at: $(date)" | tee -a $LOG_FILE
 
 CHECK_ROOT
-       dnf list installed nginx &>>$LOG_FILE
+    #    dnf list installed nginx &>>$LOG_FILE
 
     #    if [ $? -ne 0 ]
         # then 
