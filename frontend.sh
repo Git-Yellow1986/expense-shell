@@ -55,7 +55,7 @@ CHECK_ROOT
        rm -rf /usr/share/nginx/html/* # remove content in html folder
        VALIDATE $? "Delet content from html folder"
 
-       curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip
+       curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$LOG_FILE
               VALIDATE $? "Downloading the frontend code" 
 
         cd /usr/share/nginx/html &>>$LOG_FILE
@@ -64,9 +64,9 @@ CHECK_ROOT
         unzip /tmp/frontend.zip &>>$LOG_FILE
         VALIDATE $? "Extract the frontend file"
 
-       # vim /etc/nginx/default.d/expense.conf
+       vim /etc/nginx/default.d/expense.conf
 
-         cp /home/ec2-user/expense-shell/expense.conf /etc/nginx/default.d/expense.conf
+         #cp /home/ec2-user/expense-shell/expense.conf /etc/nginx/default.d/expense.conf
         #systemctl restart nginx &>>$LOG_FILE
         #systemtcl enable nginx
         systemctl restart nginx
