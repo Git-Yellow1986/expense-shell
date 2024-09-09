@@ -64,9 +64,9 @@ CHECK_ROOT
         unzip /tmp/frontend.zip &>>$LOG_FILE
         VALIDATE $? "Extract the frontend file"
 
-       vim /etc/nginx/default.d/expense.conf
+       #vim /etc/nginx/default.d/expense.conf
 
-         #cp /home/ec2-user/expense-shell/expense.conf /etc/nginx/default.d/expense.conf
+        cp /home/ec2-user/expense-shell/expense.conf /etc/nginx/default.d/expense.conf
         #systemctl restart nginx &>>$LOG_FILE
         #systemtcl enable nginx
         systemctl restart nginx
