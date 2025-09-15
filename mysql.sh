@@ -60,7 +60,7 @@ VALIDATE $? "Started mysql server" &>> $LOG_FILE
 
 mysql -h mysql.learnaws.space -u root -pExpenseApp@1 -e 'show databases;' &>> $LOG_FILE
 
-if [ &? -ne 0 ]
+if [ $? -ne 0 ]
 then 
     echo -e "$R Mysql root password is not setup, setting now $N"
     VALIDATE $? "setting up root password"
