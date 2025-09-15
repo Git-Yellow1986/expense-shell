@@ -49,16 +49,16 @@ fi
 echo "Script started executing at: $(date)" | tee -a $LOG_FILE
 CHECK_ROOT
 
-dnf install mysql-server -y &>> $LOG_FILE
-VALIDATE $? "installing mysql server" &>> $LOG_FILE
+dnf install mysql-server -y &>>$LOG_FILE
+VALIDATE $? "installing mysql server" &>>$LOG_FILE
 
 systemctl enable mysqld
-VALIDATE $? "Enable mysql server" &>> $LOG_FILE
+VALIDATE $? "Enable mysql server" &>>$LOG_FILE
 
 systemctl start mysqld
-VALIDATE $? "Started mysql server" &>> $LOG_FILE
+VALIDATE $? "Started mysql server" &>>$LOG_FILE
 
-mysql -h mysql.learnaws.space -u root -pExpenseApp@1 -e 'show databases;' &>> $LOG_FILE
+mysql -h mysql.learnaws.space -u root -pExpenseApp@1 -e 'show databases;' &>>$LOG_FILE
 
 if [ $? -ne 0 ]
 then 
