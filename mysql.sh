@@ -32,19 +32,6 @@ VALIDATE() {
     fi
 }
 
-echo "script started excuting at: $(date)" | tee -a $LOG_FILE # when it was started script to reference
-
-USAGE() {
-    echo -e "$R USAGE ::$N sudo sh 16-redirector.sh package1,package2....."
-    exit 1
-}
-
-CHECK_ROOT
-
-if [ $# -eq 0 ]
-then 
-    USAGE
-fi
 
 echo "Script started executing at: $(date)" | tee -a $LOG_FILE
 CHECK_ROOT
