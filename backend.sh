@@ -42,7 +42,7 @@ CHECK_ROOT
     VALIDATE $? "Enable Nodejs:20 "
 
     dnf install nodejs -y &>>$LOG_FILE
-    VALIDATE $? "Installing Nodejs..."
+    VALIDATE $? "Install Nodejs..."
 
     id expense &>>$LOG_FILE       
 if [ $? -ne 0 ]
@@ -52,6 +52,5 @@ then
     VALIDATE $? "Creating Expense user"
 else
     echo -e "Expense user already exists....$G SKIPPING $N"
-    exit 1
 fi
 
