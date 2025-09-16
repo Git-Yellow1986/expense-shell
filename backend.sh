@@ -48,4 +48,5 @@ then
     VALIDATE $? "Installing Nodejs..."
 else
     echo "Nodejs is already installed"
+    exit 1
 fi
