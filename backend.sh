@@ -43,11 +43,10 @@ then
     
 dnf module enable nodejs:20 -y
     VALIDATE $? "Nodejs:20 is Enable"
-
     echo "started to install nodejs"
     dnf install nodejs -y
     VALIDATE $? "Installing Nodejs..."
 else
-    echo "Nodejs is already installed"
+    VALIDATE $? "Nodejs is already installed"
     exit 1
 fi
