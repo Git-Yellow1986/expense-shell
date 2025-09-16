@@ -44,13 +44,12 @@ CHECK_ROOT
     dnf install nodejs -y &>>$LOG_FILE
     VALIDATE $? "Installing Nodejs..."
 
-    useradd expense &>>$LOG_FILE
-    VALIDATE $? "creating expense-user"
-    
+    id expense &>>$LOG_FILE       
 if [ $? -ne 0 ]
 then 
-    useradd expense
-    echo "User is adding now...."
+    useradd expense &>>$LOG_FILE
+    VALIDATE $? "Adding user"
+    
 else
     VALIDATE $? "User aleady addedd"
     exit 1
