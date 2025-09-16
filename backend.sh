@@ -1,5 +1,5 @@
 #!/bin/bash
-LOGS_FOLDER="/var/log/expense-mysql"
+LOGS_FOLDER="/var/log/expense-backend"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 TIME_STAMP=$(date +%Y-%m-%d-%H-%M-%S)
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME-$TIME_STAMP.log"
@@ -35,18 +35,17 @@ echo "Script started executing at: $(date)" | tee -a $LOG_FILE
 
 CHECK_ROOT
 
-dnf module disable nodejs -y
-    VALIDATE $? " Nodejs is Desable"
-
-if [ $? -ne 0 ]
-then
+    dnf module disable nodejs -y &>>$LOG_FILE
+    VALIDATE $? " Nodejs default desable"
     
-dnf module enable nodejs:20 -y
-    VALIDATE $? "Nodejs:20 is Enable"
-    echo "started to install nodejs"
-    dnf install nodejs -y
+    dnf module enable nodejs:20 -y &>>$LOG_FILE
+    VALIDATE $? "Enable Nodejs:20 "
+
+    dnf install nodejs -y &>>$LOG_FILE
     VALIDATE $? "Installing Nodejs..."
-else
-    echo -e "Nodejs is already installed..$G SUCCESSFULLY$N"
-    exit 1
-fi
+
+    useradd expense &>>$LOG_FILE
+    VALIDATE $? "creating expense-user"
+    
+
+
