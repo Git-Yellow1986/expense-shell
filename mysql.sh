@@ -50,9 +50,9 @@ mysql -h mysql.learnaws.space -u root -pExpenseApp@1 -e 'show databases;' &>>$LO
 if [ $? -ne 0 ]
 then 
     echo -e "$R Mysql root password is not setup, setting now $N"
-    VALIDATE $? "setting up root password"
+    VALIDATE $? "setting up root password" &>>$LOG_FILE
     mysql_secure_installation --set-root-pass ExpenseApp@1
-    VALIDATE $? "Setting up root password"
+    VALIDATE $? "Setting up root password" &>>$LOG_FILE
 else
     echo "Mysql password is already setup ....$Y SKIPPING $N"
 fi
