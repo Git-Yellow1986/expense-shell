@@ -47,5 +47,12 @@ CHECK_ROOT
     useradd expense &>>$LOG_FILE
     VALIDATE $? "creating expense-user"
     
-
+if [ $? -ne 0 ]
+then 
+    useradd expense
+    echo "User is adding now...."
+else
+    VALIDATE $? "User aleady addedd"
+    exit 1
+fi
 
