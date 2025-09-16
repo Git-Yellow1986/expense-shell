@@ -47,6 +47,6 @@ dnf module enable nodejs:20 -y
     dnf install nodejs -y
     VALIDATE $? "Installing Nodejs..."
 else
-    VALIDATE $? "Nodejs is already installed"
+    echo -e "Nodejs is already installed..$G SUCCESSFULLY$N"
     exit 1
 fi
