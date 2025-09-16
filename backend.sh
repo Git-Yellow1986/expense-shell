@@ -65,4 +65,23 @@ fi
     unzip /tmp/backend.zip &>>$LOG_FILE
     VALIDATE $? "Extracting backend application code"
 
+    npm install &>>$LOG_FILE
+    cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
 
+    # Load the data before running...
+    dnf install mysql -y &>>$LOG_FILE
+    VALIDATE $? "Installing Mysql client"
+
+    mysql -h mysql.learnaws.space -uroot -pExpenseApp@1 < /app/schema/backend.sql
+    VALIDATE $? "Schema loading"
+
+    systemctl daemon-reload &>>$LOG_FILE
+    VALIDATE $? "daemon reload"
+
+    systemctl enable backend &>>$LOG_FILE
+    VALIDATE $? "enable backend"
+
+    systemctl start backend &>>$LOG_FILE
+    VALIDATE $? "restarted backend"
+
+    
