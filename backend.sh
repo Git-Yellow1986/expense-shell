@@ -47,11 +47,11 @@ CHECK_ROOT
     id expense &>>$LOG_FILE       
 if [ $? -ne 0 ]
 then 
+    echo -e "Expense user is not exists..$G Creating $N"
     useradd expense &>>$LOG_FILE
-    VALIDATE $? "Adding user"
-    
+    VALIDATE $? "Creating Expense user"
 else
-    VALIDATE $? "User aleady addedd"
+    VALIDATE $? "Expense user already exists....$G SKIPPING $N"
     exit 1
 fi
 
