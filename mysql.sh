@@ -37,22 +37,22 @@ echo "Script started executing at: $(date)" | tee -a $LOG_FILE
 CHECK_ROOT
 
 dnf install mysql-server -y &>>$LOG_FILE
-VALIDATE $? "installing mysql server" | tee -a $LOG_FILE
+VALIDATE $? "installing mysql server" 
 
-systemctl enable mysqld
-VALIDATE $? "Enable mysql server" | tee -a $LOG_FILE
+systemctl enable mysqld &>>$LOG_FILE
+VALIDATE $? "Enable mysql server" 
 
-systemctl start mysqld
-VALIDATE $? "Started mysql server" | tee -a $LOG_FILE
+systemctl start mysqld &>>$LOG_FILE
+VALIDATE $? "Started mysql server" 
 
 mysql -h mysql.learnaws.space -u root -pExpenseApp@1 -e 'show databases;' &>>$LOG_FILE
 
 if [ $? -ne 0 ]
 then 
     echo -e "$R Mysql root password is not setup, setting now $N"
-    VALIDATE $? "setting up root password" &>>$LOG_FILE
-    mysql_secure_installation --set-root-pass ExpenseApp@1
-    VALIDATE $? "Setting up root password" &>>$LOG_FILE
+    VALIDATE $? "setting up root password"
+    mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
+    VALIDATE $? "Setting up root password" 
 else
     echo -e "Mysql password is already setup ....$Y SKIPPING $N" | tee -a $LOG_FILE
 fi
