@@ -38,11 +38,12 @@ CHECK_ROOT
 dnf module disable nodejs -y
     VALIDATE $? " Nodejs is Desable"
 
+if [ $? -ne 0 ]
+then
+    
 dnf module enable nodejs:20 -y
     VALIDATE $? "Nodejs:20 is Enable"
 
-if [ $? -ne 0 ]
-then
     echo "started to install nodejs"
     dnf install nodejs -y
     VALIDATE $? "Installing Nodejs..."
