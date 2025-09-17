@@ -64,7 +64,7 @@ VALIDATE $? "Downloading backend application code"
 cd /app
 rm -rf /app/* # remove the existing code
 unzip /tmp/backend.zip &>>$LOG_FILE
-#VALIDATE $? "Extracting backend application code"
+VALIDATE $? "Extracting backend application code"
 
 npm install &>>$LOG_FILE
 cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
@@ -74,7 +74,7 @@ cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.serv
 dnf install mysql -y &>>$LOG_FILE
 VALIDATE $? "Installing MySQL Client"
 
-mysql -h mysql.learnaws.space -uroot -p ExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
+mysql -h "mysql.learnaws.space" -uroot -p ExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
 VALIDATE $? "Schema loading"
 
 systemctl daemon-reload &>>$LOG_FILE
