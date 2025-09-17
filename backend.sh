@@ -35,54 +35,104 @@ echo "Script started executing at: $(date)" | tee -a $LOG_FILE
 
 CHECK_ROOT
 
-    dnf module disable nodejs -y &>>$LOG_FILE
-    VALIDATE $? " Nodejs default desable"
+#     dnf module disable nodejs -y &>>$LOG_FILE
+#     VALIDATE $? " Nodejs default desable"
     
-    dnf module enable nodejs:20 -y &>>$LOG_FILE
-    VALIDATE $? "Enable Nodejs:20 "
+#     dnf module enable nodejs:20 -y &>>$LOG_FILE
+#     VALIDATE $? "Enable Nodejs:20 "
 
-    dnf install nodejs -y &>>$LOG_FILE
-    VALIDATE $? "Install Nodejs..."
+#     dnf install nodejs -y &>>$LOG_FILE
+#     VALIDATE $? "Install Nodejs..."
 
-    id expense &>>$LOG_FILE       
+#     id expense &>>$LOG_FILE       
+# if [ $? -ne 0 ]
+# then 
+#     echo -e "Expense user is not exists..$G Creating $N"
+#     useradd expense &>>$LOG_FILE
+#     VALIDATE $? "Creating Expense user"
+# else
+#     echo -e "Expense user already exists....$G SKIPPING $N"
+# fi
+
+#     mkdir -p /app
+#     VALIDATE $? "creating /app folder"
+#     curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE
+#     VALIDATE $? "Downloading backend application code"
+    
+#     cd /app
+#     rm -rf /app/* # remove the existing code
+    
+#     unzip /tmp/backend.zip &>>$LOG_FILE
+#     VALIDATE $? "Extracting backend application code"
+    
+#     npm install &>>$LOG_FILE
+#     cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
+
+#     # Load the data before running...
+
+#     dnf install mysql -y &>>$LOG_FILE
+#     VALIDATE $? "Installing Mysql client"
+
+#     mysql -h mysql.learnaws.space -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
+#     VALIDATE $? "Schema loading"
+
+#     systemctl daemon-reload &>>$LOG_FILE
+#     VALIDATE $? "daemon reload"
+
+#     systemctl enable backend &>>$LOG_FILE
+#     VALIDATE $? "enable backend"
+
+#     systemctl start backend &>>$LOG_FILE
+#     VALIDATE $? "restarted backend"
+
+    
+dnf module disable nodejs -y &>>$LOG_FILE
+VALIDATE $? "Disable default nodejs"
+
+dnf module enable nodejs:20 -y &>>$LOG_FILE
+VALIDATE $? "Enable nodejs:20"
+
+dnf install nodejs -y &>>$LOG_FILE
+VALIDATE $? "Install nodejs"
+
+id expense &>>$LOG_FILE
 if [ $? -ne 0 ]
-then 
-    echo -e "Expense user is not exists..$G Creating $N"
+then
+    echo -e "expense user not exists... $G Creating $N"
     useradd expense &>>$LOG_FILE
-    VALIDATE $? "Creating Expense user"
+    VALIDATE $? "Creating expense user"
 else
-    echo -e "Expense user already exists....$G SKIPPING $N"
+    echo -e "expense user already exists...$Y SKIPPING $N"
 fi
 
-    mkdir -p /app
-    VALIDATE $? "creating /app folder"
-    curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE
-    VALIDATE $? "Downloading backend application code"
-    
-    cd /app
-    rm -rf /app/* # remove the existing code
-    
-    unzip /tmp/backend.zip &>>$LOG_FILE
-    VALIDATE $? "Extracting backend application code"
-    
-    npm install &>>$LOG_FILE
-    cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
+mkdir -p /app
+VALIDATE $? "Creating /app folder"
 
-    # Load the data before running...
+curl -o /tmp/backend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-backend-v2.zip &>>$LOG_FILE
+VALIDATE $? "Downloading backend application code"
 
-    dnf install mysql -y &>>$LOG_FILE
-    VALIDATE $? "Installing Mysql client"
+cd /app
+rm -rf /app/* # remove the existing code
+unzip /tmp/backend.zip &>>$LOG_FILE
+VALIDATE $? "Extracting backend application code"
 
-    mysql -h mysql.learnaws.space -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
-    VALIDATE $? "Schema loading"
+npm install &>>$LOG_FILE
+cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
 
-    systemctl daemon-reload &>>$LOG_FILE
-    VALIDATE $? "daemon reload"
+# load the data before running backend
 
-    systemctl enable backend &>>$LOG_FILE
-    VALIDATE $? "enable backend"
+dnf install mysql -y &>>$LOG_FILE
+VALIDATE $? "Installing MySQL Client"
 
-    systemctl start backend &>>$LOG_FILE
-    VALIDATE $? "restarted backend"
+mysql -h mysql.daws81s.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
+VALIDATE $? "Schema loading"
 
-    
+systemctl daemon-reload &>>$LOG_FILE
+VALIDATE $? "Daemon reload"
+
+systemctl enable backend &>>$LOG_FILE
+VALIDATE $? "Enabled backend"
+
+systemctl restart backend &>>$LOG_FILE
+VALIDATE $? "Restarted Backend"
+
