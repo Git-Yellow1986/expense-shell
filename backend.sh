@@ -61,10 +61,10 @@ fi
     
     cd /app
     rm -rf /app/* # remove the existing code
-  
+    
     unzip /tmp/backend.zip &>>$LOG_FILE
     VALIDATE $? "Extracting backend application code"
-
+    cd /app
     npm install &>>$LOG_FILE
     cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
 
@@ -73,7 +73,7 @@ fi
     dnf install mysql -y &>>$LOG_FILE
     VALIDATE $? "Installing Mysql client"
 
-   mysql -h mysql.learnaws.space -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
+    mysql -h mysql.learnaws.space -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
     VALIDATE $? "Schema loading"
 
     systemctl daemon-reload &>>$LOG_FILE

@@ -54,6 +54,6 @@ unzip /tmp/frontend.zip &>>$LOG_FILE
 
 /home/ec2-user/expense-shell/expense.conf /etc/nginx/default.d/expense.conf &>>$LOG_FILE
 
-systemctl restart nginx 
+systemctl restart nginx &>>$LOG_FILE
 VALIDATE $? "Restarted Nginx"
 
