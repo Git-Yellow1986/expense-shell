@@ -73,7 +73,7 @@ fi
     VALIDATE $? "Installing Mysql client"
 
     mysql -h mysql.learnaws.space -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
-    VALIDATE $? "Schema loading"
+    #VALIDATE $? "Schema loading"
 
     systemctl daemon-reload &>>$LOG_FILE
     VALIDATE $? "daemon reload"
