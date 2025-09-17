@@ -72,8 +72,8 @@ fi
     dnf install mysql -y &>>$LOG_FILE
     VALIDATE $? "Installing Mysql client"
 
-    mysql -h mysql.learnaws.space -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
-    #VALIDATE $? "Schema loading"
+   mysql -h mysql.learnaws.space -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
+    VALIDATE $? "Schema loading"
 
     systemctl daemon-reload &>>$LOG_FILE
     VALIDATE $? "daemon reload"
