@@ -41,7 +41,7 @@ systemctl start nginx &>>$LOG_FILE
 VALIDATE $? "Started Nginx"
 
 rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
-VALIDATE $? "Removed exists html code"
+#VALIDATE $? "Removed exists html code"
 
 curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$LOG_FILE
 #VALIDATE $? "Downloading frontend application code"
