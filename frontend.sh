@@ -11,6 +11,7 @@ G="\e[32m" # color green
 N="\e[0m"  # color normal
 
 CHECK_ROOT(){
+   
     if [ $USERID -ne 0 ]
     then 
         echo "Please run this script with root priveleges"
@@ -43,6 +44,8 @@ rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
 VALIDATE $? "Removed exists html code"
 
 curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$LOG_FILE
+VALIDATE $? "Downloading frontend application code"
+
 
 cd /usr/share/nginx/html &>>$LOG_FILE
 
