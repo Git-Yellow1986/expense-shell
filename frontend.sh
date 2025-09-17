@@ -47,7 +47,7 @@ curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expe
 VALIDATE $? "Downloading frontend application code"
 
 
-cd /usr/share/nginx/html &>>$LOG_FILE
+cd /usr/share/nginx/html
 
 unzip /tmp/frontend.zip &>>$LOG_FILE
 VALIDATE &? "Extracting forntend code"
