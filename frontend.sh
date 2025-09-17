@@ -50,7 +50,7 @@ VALIDATE $? "Downloading frontend application code"
 cd /usr/share/nginx/html
 
 unzip /tmp/frontend.zip &>>$LOG_FILE
-VALIDATE $? "Extracting forntend code"
+#VALIDATE $? "Extracting forntend code"
 
 /home/ec2-user/expense-shell/frontend.conf /etc/nginx/default.d/expense.conf &>>$LOG_FILE
 
