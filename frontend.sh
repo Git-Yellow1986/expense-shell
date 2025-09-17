@@ -54,6 +54,6 @@ VALIDATE $? "Extracting forntend code"
 
 /home/ec2-user/expense-shell/frontend.conf /etc/nginx/default.d/expense.conf &>>$LOG_FILE
 
-systemctl restart nginx &>>$LOG_FILE
+systemctl restart nginx 
 VALIDATE $? "Restarted Nginx"
 
